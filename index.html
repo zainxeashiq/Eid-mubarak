@@ -38,8 +38,8 @@
             padding: 25px 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 550px; /* Slightly wider to accommodate ads better */
-            width: 95%;      /* Slightly wider */
+            max-width: 550px; 
+            width: 95%;      
             animation: fadeIn 1s ease-out;
         }
 
@@ -124,21 +124,19 @@
         }
         button:active { transform: translateY(0px); }
 
-        /* Ad Container Styling */
         .ad-container {
-            width: 468px; /* Ad specific width */
-            height: 60px;  /* Ad specific height */
-            margin: 25px auto; /* Centering and spacing */
-            box-shadow: 0 0 12px 3px rgba(255, 215, 0, 0.6), /* Gold glow */
-                        0 0 6px 1px rgba(255, 255, 255, 0.4); /* Softer white inner glow */
+            width: 468px; 
+            height: 60px;  
+            margin: 25px auto; 
+            box-shadow: 0 0 12px 3px rgba(255, 215, 0, 0.6), 
+                        0 0 6px 1px rgba(255, 255, 255, 0.4); 
             overflow: hidden; 
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 5px; /* Optional: slightly rounded corners for the glow area */
+            border-radius: 5px; 
         }
 
-        /* Share Incentive Area */
         .share-incentive-area {
             margin-top: 20px;
             padding: 15px;
@@ -190,7 +188,6 @@
             background-color: #1DAE50;
         }
 
-        /* Congratulations Area */
         .congrats-area {
             margin-top: 25px;
             padding: 20px;
@@ -238,27 +235,18 @@
         @media (max-width: 600px) {
             h1 { font-size: 2.3em; }
             p { font-size: 1.15em; }
-            .container { padding: 15px 20px; max-width: 100%; width:95%; } /* Adjust container padding for ads */
+            .container { padding: 15px 20px; max-width: 100%; width:95%; }
             #nameInput, button { font-size: 1em; }
             .payment-logos img { height: 25px; }
             .progress-bar-fill { font-size: 0.7em; }
             .ad-container {
-                width: 100%; /* Full width on small screens */
+                width: 100%; 
                 max-width: 468px; 
-                height: auto; /* Adjust height for responsive ads if network supports */
-                               /* For fixed 60px height, might get letterboxed or cropped by ad */
-                min-height: 60px; /* Ensure space for the ad */
+                height: auto; 
+                min-height: 60px; 
                 margin: 20px auto;
             }
         }
-         @media (max-width: 480px) { /* For very small screens where 468px is too wide */
-             .ad-container {
-                /* The ad network itself might serve a smaller ad or scale it. 
-                   This container will just try to center what's served.
-                   If the ad network doesn't handle responsiveness for this unit, 
-                   the 468px wide ad might still overflow if not scaled by iframe. */
-             }
-         }
     </style>
 </head>
 <body>
@@ -285,7 +273,7 @@
         <!-- === ADVERTISEMENT 2 === -->
         <div class="ad-container">
             <script type="text/javascript">
-                atOptions = { /* Assuming same ad unit. Check with ad provider policy. */
+                atOptions = { 
                     'key' : '46a8320372f770c38e94a6fc7ca9c76d',
                     'format' : 'iframe',
                     'height' : 60,
@@ -307,7 +295,7 @@
         <!-- === ADVERTISEMENT 3 === -->
         <div class="ad-container">
             <script type="text/javascript">
-                atOptions = { /* Assuming same ad unit. Check with ad provider policy. */
+                atOptions = { 
                     'key' : '46a8320372f770c38e94a6fc7ca9c76d',
                     'format' : 'iframe',
                     'height' : 60,
@@ -351,7 +339,7 @@
         <!-- === ADVERTISEMENT 4 === -->
         <div class="ad-container">
             <script type="text/javascript">
-                atOptions = { /* Assuming same ad unit. Check with ad provider policy. */
+                atOptions = { 
                     'key' : '46a8320372f770c38e94a6fc7ca9c76d',
                     'format' : 'iframe',
                     'height' : 60,
@@ -366,8 +354,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/fireworks-js@latest/dist/fireworks.min.js"></script>
     <script>
-        // ALL PREVIOUS JAVASCRIPT CODE REMAINS THE SAME
-        // ... (copy paste all the script from the previous correct answer here) ...
         document.addEventListener('DOMContentLoaded', () => {
             const greetingFromNameEl = document.getElementById('greetingFromName');
             const eidiMessageEl = document.getElementById('eidiMessage');
@@ -386,7 +372,7 @@
             const easyPaisaButton = document.getElementById('easyPaisaButton');
             const jazzCashButton = document.getElementById('jazzCashButton');
 
-            let senderNameForDisplay = "زین"; 
+            let senderNameForInitialGreeting = "زین"; 
             const eidiAmountText = "5000"; 
             const MAX_SHARES = 10;
             let currentShareCount = 0;
@@ -400,24 +386,23 @@
                 const nameFromUrl = urlParams.get('name');
 
                 if (nameFromUrl) { 
-                    senderNameForDisplay = decodeURIComponent(nameFromUrl);
-                    document.querySelector('.input-area').style.display = 'none';
+                    senderNameForInitialGreeting = decodeURIComponent(nameFromUrl);
                     if(shareIncentiveArea) shareIncentiveArea.style.display = 'none';
                     if(congratsArea) congratsArea.style.display = 'none';
                     if(generatedLinkArea) generatedLinkArea.style.display = 'none';
-                    // Hide ads for recipients too, if desired
-                    // document.querySelectorAll('.ad-container').forEach(ad => ad.style.display = 'none');
                 } else { 
-                    if (storedName) {
+                    if (storedName) { 
                         generatedByNameForShareTracking = storedName;
                         currentShareCount = storedCount;
+                        senderNameForInitialGreeting = storedName; 
+
                         if(generatedLinkInput) generatedLinkInput.value = `${window.location.origin}${window.location.pathname}?name=${encodeURIComponent(generatedByNameForShareTracking)}`;
                         if(generatedLinkArea) generatedLinkArea.style.display = 'block';
-                        if(shareIncentiveArea) shareIncentiveArea.style.display = 'block';
+                        if(shareIncentiveArea) shareIncentiveArea.style.display = 'block'; 
                     }
                 }
-                updateMessages(senderNameForDisplay);
-                updateShareProgressUI();
+                updateMessages(senderNameForInitialGreeting); 
+                updateShareProgressUI(); 
             }
             
             function saveState() {
@@ -427,12 +412,15 @@
                 }
             }
             
-            function resetShareState() {
+            function resetShareStateAndUIForNewLink() {
                 currentShareCount = 0;
-                localStorage.removeItem('currentShareCount_v2');
-                localStorage.removeItem('generatedByNameForShareTracking'); 
-                generatedByNameForShareTracking = null;
-                updateShareProgressUI();
+                localStorage.removeItem('currentShareCount_v2'); 
+                
+                if(shareIncentiveArea) shareIncentiveArea.style.display = 'none';
+                if(congratsArea) congratsArea.style.display = 'none';
+                if(generatedLinkArea) generatedLinkArea.style.display = 'none'; 
+                
+                updateShareProgressUI(); 
             }
 
             function updateMessages(name) {
@@ -452,8 +440,7 @@
             }
 
             function transliterateToUrdu(name) {
-                name = name.toLowerCase();
-                let urduName = "";
+                name = name.toLowerCase(); let urduName = "";
                 const commonNames = { "ali": "علی", "zain": "زین", "ahmed": "احمد", "ahmad": "احمد", "fatima": "فاطمہ", "sara": "سارہ", "umar": "عمر", "usman": "عثمان", "ayesha": "عائشہ", "bilal": "بلال", "hassan": "حسن", "khan": "خان", "mohammad": "محمد", "muhammad": "محمد", "abdullah": "عبداللہ" };
                 if (commonNames[name]) return commonNames[name];
                 const map = { 'ee': 'ی', 'oo': 'و', 'ou': 'و', 'au': 'و', 'ai': 'ے', 'ei': 'ے', 'ae': 'ے', 'kh': 'خ', 'gh': 'غ', 'sh': 'ش', 'ch': 'چ', 'th': 'تھ', 'dh': 'دھ', 'ph': 'پھ', 'bh': 'بھ', 'rh': 'ڑھ', 'jh': 'جھ', 'a': 'ا', 'b': 'ب', 'c': 'ک', 'd': 'د', 'e': 'ی', 'f': 'ف', 'g': 'گ', 'h': 'ہ', 'i': 'ی', 'j': 'ج', 'k': 'ک', 'l': 'ل', 'm': 'م', 'n': 'ن', 'o': 'و', 'p': 'پ', 'q': 'ق', 'r': 'ر', 's': 'س', 't': 'ت', 'u': 'یُو', 'v': 'و', 'w': 'و', 'x': 'کس', 'y': 'ی', 'z': 'ز', ' ': ' ' };
@@ -471,7 +458,7 @@
             function isLikelyUrdu(str) { return /^[\u0600-\u06FF\u0750-\u077F\u0590-\u05FF\s]+$/.test(str); }
 
             function updateShareProgressUI() {
-                if (!progressBarFill || !shareCountText) return; // Elements might not exist if user is recipient
+                if (!progressBarFill || !shareCountText) return; 
                 const progressPercent = Math.min((currentShareCount / MAX_SHARES) * 100, 100);
                 progressBarFill.style.width = `${progressPercent}%`;
                 progressBarFill.textContent = `${Math.floor(progressPercent)}%`;
@@ -482,8 +469,10 @@
                     if(generatedLinkArea) generatedLinkArea.style.display = 'none'; 
                     if(congratsArea) congratsArea.style.display = 'block';
                 } else {
-                    if (generatedByNameForShareTracking && document.querySelector('.input-area') && !document.querySelector('.input-area').style.display === 'none') {
+                    if (generatedByNameForShareTracking) { 
                          if(shareIncentiveArea) shareIncentiveArea.style.display = 'block';
+                    } else {
+                        if(shareIncentiveArea) shareIncentiveArea.style.display = 'none';
                     }
                     if(congratsArea) congratsArea.style.display = 'none';
                 }
@@ -499,21 +488,23 @@
                             nameForUrl = transliterateToUrdu(enteredName);
                         }
                         
+                        resetShareStateAndUIForNewLink(); 
+                        
+                        generatedByNameForShareTracking = nameForUrl; 
+                        saveState(); 
+
                         const baseUrl = window.location.origin + window.location.pathname;
                         const generatedUrl = `${baseUrl}?name=${encodeURIComponent(nameForUrl)}`;
                         
                         if(generatedLinkInput) generatedLinkInput.value = generatedUrl;
                         if(generatedLinkArea) generatedLinkArea.style.display = 'block';
                         
-                        resetShareState();
-                        generatedByNameForShareTracking = nameForUrl; 
-                        saveState(); 
+                        // Optional: Update main greeting on page immediately
+                        // updateMessages(nameForUrl); 
 
-                        if(shareIncentiveArea) shareIncentiveArea.style.display = 'block';
-                        if(congratsArea) congratsArea.style.display = 'none'; 
                         updateShareProgressUI(); 
 
-                        if(shareIncentiveArea) shareIncentiveArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        if(generatedLinkArea) generatedLinkArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     } else {
                         alert('براہ کرم اپنا نام درج کریں۔');
                     }
@@ -522,15 +513,19 @@
 
             if(whatsappShareButton) {
                 whatsappShareButton.addEventListener('click', async () => {
+                    if (!generatedByNameForShareTracking) { 
+                        alert("پہلے اپنا نام لکھ کر 'Done' بٹن دبائیں تاکہ آپ کا لنک جنریٹ ہو۔");
+                        return;
+                    }
                     if (currentShareCount >= MAX_SHARES) return; 
 
                     const linkToShare = generatedLinkInput.value;
-                    if (!linkToShare && generatedLinkInput) { // Check if generatedLinkInput itself is present
+                    if (!linkToShare && generatedLinkInput) {
                         alert("پہلے نام لکھ کر 'Done' بٹن دبائیں تاکہ لنک جنریٹ ہو سکے۔");
                         return;
                     }
                     
-                    const nameInShareMessage = generatedByNameForShareTracking || senderNameForDisplay;
+                    const nameInShareMessage = generatedByNameForShareTracking; 
 
                     const shareData = {
                         title: 'عید مبارک!',
@@ -539,18 +534,8 @@
                     };
 
                     let sharedSuccessfully = false;
-                    if (navigator.share) {
-                        try {
-                            await navigator.share(shareData);
-                            sharedSuccessfully = true;
-                        } catch (err) {
-                            console.error('Error sharing via navigator.share:', err);
-                        }
-                    } else {
-                        const whatsappMessage = encodeURIComponent(`${shareData.text} ${shareData.url}`);
-                        window.open(`https://wa.me/?text=${whatsappMessage}`, '_blank');
-                        sharedSuccessfully = true; 
-                    }
+                    if (navigator.share) { try { await navigator.share(shareData); sharedSuccessfully = true; } catch (err) { console.error('Error sharing:', err);}}
+                    else { const whatsappMessage = encodeURIComponent(`${shareData.text} ${shareData.url}`); window.open(`https://wa.me/?text=${whatsappMessage}`, '_blank'); sharedSuccessfully = true; }
 
                     if (sharedSuccessfully) {
                         currentShareCount++;
@@ -561,15 +546,17 @@
             }
 
             function handlePaymentButtonClick() {
-                resetShareState(); 
+                localStorage.removeItem('currentShareCount_v2');
                 localStorage.removeItem('generatedByNameForShareTracking'); 
+                generatedByNameForShareTracking = null;
+                currentShareCount = 0;
                 window.location.href = window.location.origin + window.location.pathname;
             }
 
             if(easyPaisaButton) easyPaisaButton.addEventListener('click', handlePaymentButtonClick);
             if(jazzCashButton) jazzCashButton.addEventListener('click', handlePaymentButtonClick);
             
-            loadState();
+            loadState(); 
         });
     </script>
 </body>
