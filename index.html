@@ -478,4 +478,99 @@
                 shareCountText.textContent = `${currentShareCount}/${MAX_SHARES} شیئرز مکمل`;
 
                 if (currentShareCount >= MAX_SHARES) {
-       
+                    if(shareIncentiveArea) shareIncentiveArea.style.display = 'none';
+                    if(generatedLinkArea) generatedLinkArea.style.display = 'none'; 
+                    if(congratsArea) congratsArea.style.display = 'block';
+                } else {
+                    if (generatedByNameForShareTracking && document.querySelector('.input-area') && !document.querySelector('.input-area').style.display === 'none') {
+                         if(shareIncentiveArea) shareIncentiveArea.style.display = 'block';
+                    }
+                    if(congratsArea) congratsArea.style.display = 'none';
+                }
+            }
+            
+            if(doneButton) {
+                doneButton.addEventListener('click', () => {
+                    let enteredName = nameInput.value.trim();
+                    let nameForUrl = enteredName;
+
+                    if (enteredName) {
+                        if (isLikelyEnglish(enteredName) && !isLikelyUrdu(enteredName)) {
+                            nameForUrl = transliterateToUrdu(enteredName);
+                        }
+                        
+                        const baseUrl = window.location.origin + window.location.pathname;
+                        const generatedUrl = `${baseUrl}?name=${encodeURIComponent(nameForUrl)}`;
+                        
+                        if(generatedLinkInput) generatedLinkInput.value = generatedUrl;
+                        if(generatedLinkArea) generatedLinkArea.style.display = 'block';
+                        
+                        resetShareState();
+                        generatedByNameForShareTracking = nameForUrl; 
+                        saveState(); 
+
+                        if(shareIncentiveArea) shareIncentiveArea.style.display = 'block';
+                        if(congratsArea) congratsArea.style.display = 'none'; 
+                        updateShareProgressUI(); 
+
+                        if(shareIncentiveArea) shareIncentiveArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    } else {
+                        alert('براہ کرم اپنا نام درج کریں۔');
+                    }
+                });
+            }
+
+            if(whatsappShareButton) {
+                whatsappShareButton.addEventListener('click', async () => {
+                    if (currentShareCount >= MAX_SHARES) return; 
+
+                    const linkToShare = generatedLinkInput.value;
+                    if (!linkToShare && generatedLinkInput) { // Check if generatedLinkInput itself is present
+                        alert("پہلے نام لکھ کر 'Done' بٹن دبائیں تاکہ لنک جنریٹ ہو سکے۔");
+                        return;
+                    }
+                    
+                    const nameInShareMessage = generatedByNameForShareTracking || senderNameForDisplay;
+
+                    const shareData = {
+                        title: 'عید مبارک!',
+                        text: `${nameInShareMessage} کی طرف سے آپ سب کو عید مبارک! یہ خصوصی پیغام دیکھیں:`,
+                        url: linkToShare,
+                    };
+
+                    let sharedSuccessfully = false;
+                    if (navigator.share) {
+                        try {
+                            await navigator.share(shareData);
+                            sharedSuccessfully = true;
+                        } catch (err) {
+                            console.error('Error sharing via navigator.share:', err);
+                        }
+                    } else {
+                        const whatsappMessage = encodeURIComponent(`${shareData.text} ${shareData.url}`);
+                        window.open(`https://wa.me/?text=${whatsappMessage}`, '_blank');
+                        sharedSuccessfully = true; 
+                    }
+
+                    if (sharedSuccessfully) {
+                        currentShareCount++;
+                        saveState();
+                        updateShareProgressUI();
+                    }
+                });
+            }
+
+            function handlePaymentButtonClick() {
+                resetShareState(); 
+                localStorage.removeItem('generatedByNameForShareTracking'); 
+                window.location.href = window.location.origin + window.location.pathname;
+            }
+
+            if(easyPaisaButton) easyPaisaButton.addEventListener('click', handlePaymentButtonClick);
+            if(jazzCashButton) jazzCashButton.addEventListener('click', handlePaymentButtonClick);
+            
+            loadState();
+        });
+    </script>
+</body>
+</html>
