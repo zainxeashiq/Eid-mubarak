@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Mubarak!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Noto Nastaliq Urdu', 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #e0e0e0;
+            text-align: center;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 550px; /* Slightly wider to accommodate ads better */
+            width: 95%;      /* Slightly wider */
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 2.8em; 
+            color: #FFD700;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+            margin-bottom: 15px;
+            font-weight: 700; 
+        }
+
+        #eidImage {
+            max-width: 75%;
+            height: auto;
+            border-radius: 10px;
+            margin: 15px auto;
+            display: block;
+            box-shadow: 0 0 20px 5px #FFD700, 0 0 30px 10px rgba(255, 215, 0, 0.4);
+            border: 3px solid #FFD700;
+        }
+
+        p {
+            font-size: 1.4em; 
+            line-height: 1.6;
+            margin: 15px 0;
+            font-weight: 400; 
+        }
+        
+        .urdu-text {
+            direction: rtl;
+        }
+
+        .input-area {
+            margin-top: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #nameInput {
+            padding: 12px 15px;
+            border: 2px solid #FFD700;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1.1em;
+            width: 80%;
+            box-sizing: border-box;
+            text-align: center; 
+            font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif;
+        }
+        #nameInput::placeholder {
+            color: #bbb;
+            font-family: 'Noto Nastaliq Urdu', sans-serif; 
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #FFD700; 
+            color: #333; 
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+        }
+        button:hover {
+            background-color: #f0c000; 
+            transform: translateY(-2px);
+        }
+        button:active { transform: translateY(0px); }
+
+        /* Ad Container Styling */
+        .ad-container {
+            width: 468px; /* Ad specific width */
+            height: 60px;  /* Ad specific height */
+            margin: 25px auto; /* Centering and spacing */
+            box-shadow: 0 0 12px 3px rgba(255, 215, 0, 0.6), /* Gold glow */
+                        0 0 6px 1px rgba(255, 255, 255, 0.4); /* Softer white inner glow */
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px; /* Optional: slightly rounded corners for the glow area */
+        }
+
+        /* Share Incentive Area */
+        .share-incentive-area {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+        .share-incentive-area p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .payment-logos img {
+            height: 30px;
+            margin: 0 8px;
+            vertical-align: middle;
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: rgba(0,0,0,0.3);
+            border-radius: 25px;
+            height: 25px;
+            margin: 15px 0;
+            overflow: hidden;
+            border: 1px solid #FFD700;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%; 
+            background: linear-gradient(45deg, #f0c000, #FFD700);
+            border-radius: 25px;
+            transition: width 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            color: #333;
+            font-weight: bold;
+        }
+        #shareCountText {
+            font-size: 0.9em;
+            margin-top: 5px;
+            color: #FFD700;
+        }
+        #whatsappShareButton {
+            background-color: #25D366; 
+            color: white;
+        }
+        #whatsappShareButton:hover {
+            background-color: #1DAE50;
+        }
+
+        /* Congratulations Area */
+        .congrats-area {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: rgba(0, 128, 0, 0.3); 
+            border-radius: 10px;
+            border: 1px solid #00FF00;
+        }
+        .congrats-area h2 {
+            color: #00FF00; 
+            font-size: 1.8em;
+        }
+        .congrats-area p {
+            font-size: 1.1em;
+        }
+        .payment-options button {
+            margin: 10px 5px;
+            background-color: #555;
+            color: #fff;
+        }
+        .payment-options button:hover {
+            background-color: #777;
+        }
+
+        #generatedLinkArea { 
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            animation: fadeIn 0.5s ease-out;
+        }
+         #generatedLinkInput {
+            width: calc(100% - 24px); 
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #FFD700;
+            background-color: rgba(0,0,0,0.2);
+            color: #fff;
+            border-radius: 5px;
+            font-size: 0.9em;
+            text-align: center;
+            box-sizing: border-box;
+            word-break: break-all; 
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.3em; }
+            p { font-size: 1.15em; }
+            .container { padding: 15px 20px; max-width: 100%; width:95%; } /* Adjust container padding for ads */
+            #nameInput, button { font-size: 1em; }
+            .payment-logos img { height: 25px; }
+            .progress-bar-fill { font-size: 0.7em; }
+            .ad-container {
+                width: 100%; /* Full width on small screens */
+                max-width: 468px; 
+                height: auto; /* Adjust height for responsive ads if network supports */
+                               /* For fixed 60px height, might get letterboxed or cropped by ad */
+                min-height: 60px; /* Ensure space for the ad */
+                margin: 20px auto;
+            }
+        }
+         @media (max-width: 480px) { /* For very small screens where 468px is too wide */
+             .ad-container {
+                /* The ad network itself might serve a smaller ad or scale it. 
+                   This container will just try to center what's served.
+                   If the ad network doesn't handle responsiveness for this unit, 
+                   the 468px wide ad might still overflow if not scaled by iframe. */
+             }
+         }
+    </style>
+</head>
+<body>
+    <div class="fireworks-container"></div>
+    
+    <div class="container">
+        <!-- === ADVERTISEMENT 1 === -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '46a8320372f770c38e94a6fc7ca9c76d',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/46a8320372f770c38e94a6fc7ca9c76d/invoke.js"></script>
+        </div>
+
+        <h1 class="urdu-text">عید مبارک</h1>
+        <img src="Eidmubarak.webp" alt="Eid Mubarak Greetings" id="eidImage">
+        
+        <!-- === ADVERTISEMENT 2 === -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = { /* Assuming same ad unit. Check with ad provider policy. */
+                    'key' : '46a8320372f770c38e94a6fc7ca9c76d',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/46a8320372f770c38e94a6fc7ca9c76d/invoke.js"></script>
+        </div>
+
+        <p id="greetingFromName" class="urdu-text"></p>
+        <p id="eidiMessage" class="urdu-text"></p>
+
+        <div class="input-area">
+            <input type="text" id="nameInput" placeholder="یہاں اپنا نام لکھیں (English or Urdu)">
+            <button id="doneButton">Done ✅</button>
+        </div>
+
+        <!-- === ADVERTISEMENT 3 === -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = { /* Assuming same ad unit. Check with ad provider policy. */
+                    'key' : '46a8320372f770c38e94a6fc7ca9c76d',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/46a8320372f770c38e94a6fc7ca9c76d/invoke.js"></script>
+        </div>
+
+        <div id="generatedLinkArea" style="display: none;">
+            <p class="urdu-text">یہ لنک دوسروں کو بھیجیں:</p>
+            <input type="text" id="generatedLinkInput" readonly>
+        </div>
+        
+        <div class="share-incentive-area" style="display: none;">
+            <p class="urdu-text">یہ لنک 10 لوگوں کو شیئر کریں اور اپنی عیدی
+                <span class="payment-logos">
+                    ایزی پیسہ / جاز کیش
+                </span>
+                میں پائیں!
+            </p>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBarFill">0%</div>
+            </div>
+            <p id="shareCountText" class="urdu-text">0/10 شیئرز مکمل</p>
+            <button id="whatsappShareButton">
+                 WhatsApp Share 📲
+            </button>
+        </div>
+
+        <div class="congrats-area" style="display: none;">
+            <h2 class="urdu-text">🎉 مبارک ہو! 🎉</h2>
+            <p class="urdu-text">آپ نے 10 شیئرز مکمل کر لیے ہیں۔ اپنی عیدی حاصل کرنے کے لیے نیچے کلک کریں:</p>
+            <div class="payment-options">
+                <button id="easyPaisaButton">ایزی پیسہ</button>
+                <button id="jazzCashButton">جاز کیش</button>
+            </div>
+        </div>
+
+        <!-- === ADVERTISEMENT 4 === -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = { /* Assuming same ad unit. Check with ad provider policy. */
+                    'key' : '46a8320372f770c38e94a6fc7ca9c76d',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/46a8320372f770c38e94a6fc7ca9c76d/invoke.js"></script>
+        </div>
+
+    </div> <!-- End of .container -->
+
+    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@latest/dist/fireworks.min.js"></script>
+    <script>
+        // ALL PREVIOUS JAVASCRIPT CODE REMAINS THE SAME
+        // ... (copy paste all the script from the previous correct answer here) ...
+        document.addEventListener('DOMContentLoaded', () => {
+            const greetingFromNameEl = document.getElementById('greetingFromName');
+            const eidiMessageEl = document.getElementById('eidiMessage');
+            const nameInput = document.getElementById('nameInput');
+            const doneButton = document.getElementById('doneButton');
+            
+            const generatedLinkArea = document.getElementById('generatedLinkArea');
+            const generatedLinkInput = document.getElementById('generatedLinkInput');
+            
+            const shareIncentiveArea = document.querySelector('.share-incentive-area');
+            const progressBarFill = document.getElementById('progressBarFill');
+            const shareCountText = document.getElementById('shareCountText');
+            const whatsappShareButton = document.getElementById('whatsappShareButton');
+            
+            const congratsArea = document.querySelector('.congrats-area');
+            const easyPaisaButton = document.getElementById('easyPaisaButton');
+            const jazzCashButton = document.getElementById('jazzCashButton');
+
+            let senderNameForDisplay = "زین"; 
+            const eidiAmountText = "5000"; 
+            const MAX_SHARES = 10;
+            let currentShareCount = 0;
+            let generatedByNameForShareTracking = null; 
+
+            function loadState() {
+                const storedName = localStorage.getItem('generatedByNameForShareTracking');
+                const storedCount = parseInt(localStorage.getItem('currentShareCount_v2'), 10) || 0;
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const nameFromUrl = urlParams.get('name');
+
+                if (nameFromUrl) { 
+                    senderNameForDisplay = decodeURIComponent(nameFromUrl);
+                    document.querySelector('.input-area').style.display = 'none';
+                    if(shareIncentiveArea) shareIncentiveArea.style.display = 'none';
+                    if(congratsArea) congratsArea.style.display = 'none';
+                    if(generatedLinkArea) generatedLinkArea.style.display = 'none';
+                    // Hide ads for recipients too, if desired
+                    // document.querySelectorAll('.ad-container').forEach(ad => ad.style.display = 'none');
+                } else { 
+                    if (storedName) {
+                        generatedByNameForShareTracking = storedName;
+                        currentShareCount = storedCount;
+                        if(generatedLinkInput) generatedLinkInput.value = `${window.location.origin}${window.location.pathname}?name=${encodeURIComponent(generatedByNameForShareTracking)}`;
+                        if(generatedLinkArea) generatedLinkArea.style.display = 'block';
+                        if(shareIncentiveArea) shareIncentiveArea.style.display = 'block';
+                    }
+                }
+                updateMessages(senderNameForDisplay);
+                updateShareProgressUI();
+            }
+            
+            function saveState() {
+                if (generatedByNameForShareTracking) {
+                    localStorage.setItem('generatedByNameForShareTracking', generatedByNameForShareTracking);
+                    localStorage.setItem('currentShareCount_v2', currentShareCount.toString());
+                }
+            }
+            
+            function resetShareState() {
+                currentShareCount = 0;
+                localStorage.removeItem('currentShareCount_v2');
+                localStorage.removeItem('generatedByNameForShareTracking'); 
+                generatedByNameForShareTracking = null;
+                updateShareProgressUI();
+            }
+
+            function updateMessages(name) {
+                if(greetingFromNameEl) greetingFromNameEl.textContent = `${name} کی طرف سے عید مبارک`;
+                if(eidiMessageEl) eidiMessageEl.textContent = `آپکو ${name} کی طرف سے ${eidiAmountText} عیدی مبارک ہو`;
+            }
+            
+            const fireworksContainer = document.querySelector('.fireworks-container');
+            if (fireworksContainer) {
+                const fireworks = new Fireworks(fireworksContainer, {
+                    rocketsPoint: { min: 0, max: 100 }, hue: { min: 0, max: 360 },
+                    delay: { min: 30, max: 60 }, speed: 2, acceleration: 1.05,
+                    friction: 0.97, gravity: 1.5, particles: 90, flickering: 50,
+                    intensity: 30, traceSpeed: 3, explosion: 7, sound: { enabled: false }
+                });
+                fireworks.start();
+            }
+
+            function transliterateToUrdu(name) {
+                name = name.toLowerCase();
+                let urduName = "";
+                const commonNames = { "ali": "علی", "zain": "زین", "ahmed": "احمد", "ahmad": "احمد", "fatima": "فاطمہ", "sara": "سارہ", "umar": "عمر", "usman": "عثمان", "ayesha": "عائشہ", "bilal": "بلال", "hassan": "حسن", "khan": "خان", "mohammad": "محمد", "muhammad": "محمد", "abdullah": "عبداللہ" };
+                if (commonNames[name]) return commonNames[name];
+                const map = { 'ee': 'ی', 'oo': 'و', 'ou': 'و', 'au': 'و', 'ai': 'ے', 'ei': 'ے', 'ae': 'ے', 'kh': 'خ', 'gh': 'غ', 'sh': 'ش', 'ch': 'چ', 'th': 'تھ', 'dh': 'دھ', 'ph': 'پھ', 'bh': 'بھ', 'rh': 'ڑھ', 'jh': 'جھ', 'a': 'ا', 'b': 'ب', 'c': 'ک', 'd': 'د', 'e': 'ی', 'f': 'ف', 'g': 'گ', 'h': 'ہ', 'i': 'ی', 'j': 'ج', 'k': 'ک', 'l': 'ل', 'm': 'م', 'n': 'ن', 'o': 'و', 'p': 'پ', 'q': 'ق', 'r': 'ر', 's': 'س', 't': 'ت', 'u': 'یُو', 'v': 'و', 'w': 'و', 'x': 'کس', 'y': 'ی', 'z': 'ز', ' ': ' ' };
+                let i = 0;
+                while (i < name.length) {
+                    let foundMatch = false;
+                    if (i + 1 < name.length) { let twoChar = name.substring(i, i + 2); if (map[twoChar]) { urduName += map[twoChar]; i += 2; foundMatch = true; } }
+                    if (!foundMatch) { let oneChar = name.substring(i, i + 1); if (map[oneChar]) { urduName += map[oneChar]; } else { urduName += oneChar; } i += 1; }
+                }
+                urduName = urduName.replace(/^اا/, "آ");
+                if (name.includes('ce') || name.includes('ci') || name.includes('cy')) { urduName = urduName.replace(/ک(?=[یے])/, "س"); }
+                return urduName;
+            }
+            function isLikelyEnglish(str) { return /^[a-zA-Z\s]+$/.test(str); }
+            function isLikelyUrdu(str) { return /^[\u0600-\u06FF\u0750-\u077F\u0590-\u05FF\s]+$/.test(str); }
+
+            function updateShareProgressUI() {
+                if (!progressBarFill || !shareCountText) return; // Elements might not exist if user is recipient
+                const progressPercent = Math.min((currentShareCount / MAX_SHARES) * 100, 100);
+                progressBarFill.style.width = `${progressPercent}%`;
+                progressBarFill.textContent = `${Math.floor(progressPercent)}%`;
+                shareCountText.textContent = `${currentShareCount}/${MAX_SHARES} شیئرز مکمل`;
+
+                if (currentShareCount >= MAX_SHARES) {
+       
